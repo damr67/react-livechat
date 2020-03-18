@@ -8,15 +8,24 @@ on:
   push:
     branches: [ master ]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  deploy:
-    name: deploy to firebase
-    # The type of runner that the job will run on
+  main:
+    name: Build and Deploy
     runs-on: ubuntu-latest
-
-# Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: lowply/deploy-firebase@v0.0.2
+    # Checkout code
+    - name: Check out code
+      uses: actions/checkout@master
+      
+    # Building code
+    - name: Build Hugo
+      uses: lowply/build-hugo@v0.0.2
+      
+    # Deploying to Firebase
+    - name: Deploy to Firebase
+      uses: lowply/deploy-firebase@v0.0.2
+      env:
+        FIREBASE_TOKEN: 1//05G9LjcOVyNi3CgYIARAAGAUSNwF-L9IrxVrrfSQN3k1F7DKU2pQOGX-QLTYqDUVQaJF8k1Yz_CS9yt0PkswtIH1vjv4ILAMWDv0
+        FIREBASE_PROJECT: friendlychat-84bf3
+    
+    
